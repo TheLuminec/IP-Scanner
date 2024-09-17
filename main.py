@@ -25,6 +25,7 @@ def scan_network(ip):
         if open_ports:
             addToFile(ip, open_ports)
 
+
 while True:
     r1 = random.randint(0, 255)
     r2 = random.randint(0, 255)
