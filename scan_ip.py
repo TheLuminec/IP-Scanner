@@ -1,8 +1,4 @@
-import nmap
+import socket
 
-nm = nmap.PortScannerAsync()
-
-def ping(ip):
-    
-
-def scan_ip(ip, ports=None):
+sock = socket.socket(socket.AF_INET)
+print(sock.connect(("8.8.8.8", 443)))
