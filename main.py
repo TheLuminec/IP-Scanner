@@ -73,7 +73,7 @@ def get_random_ip(start_ip=[0,0,0,0], end_ip=[255,255,255,255]):
     return ip
 
 
-def scan_random_ips(amount=-1, batch_size=512):
+def scan_random_ips(amount, batch_size=512):
     conn = create_database()
     for i  in range (0, amount, batch_size):
         batch = [get_random_ip() for i in range(batch_size)]

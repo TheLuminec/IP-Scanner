@@ -1,26 +1,4 @@
-This is a IP-Scanner i'm testing.
+This is a IP-Scanner, which scans every port for the given IP address ranges.
+While it is efficient the networks I run on limit the amount of pings to a few thousand a second.
 
-use-
-nmap3
-sqlite3
-
-somthing that multthreads
-
-Will be pinging many ips at once to minimize downtime,
-
-Steps per thread:
-Get next iterated IP
-Ping - if no response log dead
-Port scan - 0-65535
-if web flag was set than log to web-port
-if has any non closed port log to ported
-log to alive
-give thread new iterated IP
-
--Sorting will come later after mass data collection
-
-Will use seperate databases
-1. dead - doesn't respond
-2. alive - responds
-3. ported - has at least one port not closed
-4. good-port - has 433 / 80 / 22 open
+To ping every IPv4 address and every port it would take 281,474,976,710,656 pings, which is not feasible on my system.
