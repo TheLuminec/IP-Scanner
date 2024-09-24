@@ -36,13 +36,13 @@ async def async_scan_ports(ip):
     timeout = response.rtt_max * 10
     async def check_port(port):
         try:
-            # Attempt to open an async connection to the IP and port
             await asyncio.wait_for(asyncio.open_connection(ip, port), timeout=timeout)
-            open_ports.append(port)  # If successful, add the port to the list of open ports
+            open_ports.append(port)
             #print(f"Port {port} is open.")
 
         except:
-            print(f"Port {port} is closed.")
+            #print(f"Port {port} is closed.")
+            pass
 
     if(response.rtt_avg < tmax):
         for pr in range (0, 65536, 2048):
@@ -73,9 +73,9 @@ def get_random_ip(start_ip=[0,0,0,0], end_ip=[255,255,255,255]):
     return ip
 
 
-def scan_random_ips(batch_size=512):
+def scan_random_ips(amount=-1, batch_size=512):
     conn = create_database()
-    while(True):
+    for i  in range (0, amount, batch_size):
         batch = [get_random_ip() for i in range(batch_size)]
         results = asyncio.run(scan_ip_batch(batch))
         print(f"Batch has completed.")
@@ -87,14 +87,11 @@ def scan_random_ips(batch_size=512):
 def main():
     start_time = time.time()
 
-    #ip = "127.0.0.1"
-    #ip = "8.8.8.8"
+    start_ip = int.from_bytes([71,58,3,0], 'big')
+    end_ip = int.from_bytes([71,58,9,0], 'big') + 1
 
-    start_ip = int.from_bytes([71,58,0,0], 'big')
-    end_ip = int.from_bytes([71,58,6,0], 'big') + 1
-
-    scan_ip_range(start_ip, end_ip, batch_size=128)
-    #scan_random_ips()
+    #scan_ip_range(start_ip, end_ip, batch_size=128)
+    scan_random_ips(amount=4096)
 
     print(f"Scan took {time.time() - start_time} seconds")
 
